@@ -1,35 +1,33 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Description } from './Description/Description'
+import { Options } from './Options/Options'
+import { Feedback } from './Feedback/Feedback'
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const [rate, setRate] = useState({
+	good: 0,
+	neutral: 0,
+	bad: 0
+  })
+
+  const updateFeedback = (feedbackType) => {
+
+    setRate((prevRate) => ({
+      ...prevRate,
+      feedbackType: prevRate.feedbackType + 1,
+    }))
+    
+   }
+  
+  return <>
+    <Description />
+    <Options variant="good" updateRate={updateFeedback}>Good</Options>
+    <Options variant="neutral" updateRate={updateFeedback}>Neutral</Options>
+    <Options variant="bad" updateRate={updateFeedback}>Bad</Options>
+    <Feedback>Good: {rate.good }</Feedback>
+    <Feedback>Neutral: {rate.neutral }</Feedback>
+    <Feedback>Bad: {rate.bad }</Feedback>
+  </>
 }
-
-export default App
