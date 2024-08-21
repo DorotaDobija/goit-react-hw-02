@@ -1,4 +1,4 @@
-export const Feedback = ({children}) => {
+export const Feedback = ({ children}) => {
     return <>
         <p>{children}</p>
     </>
